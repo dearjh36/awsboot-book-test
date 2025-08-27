@@ -1,0 +1,49 @@
+package org.awsboot.service;
+
+import lombok.RequiredArgsConstructor;
+import org.awsboot.domain.posts.Posts;
+import org.awsboot.domain.posts.PostsRepository;
+import org.awsboot.web.dto.PostsListResponseDto;
+import org.awsboot.web.dto.PostsResponseDto;
+import org.awsboot.web.dto.PostsSaveRequestDto;
+import org.awsboot.web.dto.PostsUpdateRequestDto;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@RequiredArgsConstructor
+@Service
+public class PostsService {
+    private final PostsRepository postsRepository;
+
+    @Transactional
+    public Long save(PostsSaveRequestDto requestDto) {
+        return postsRepository.save(requestDto.toEntity()).getId();
+    }
+
+    @Transactional
+    public Long update(Long id, PostsUpdateRequestDto requestDto){
+        Posts post = postsRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id = " + id ));
+
+        post.update(requestDto.getTitle(), requestDto.getTitle());
+
+        return id;
+    }
+
+    public PostsResponseDto findById(Long id){
+        Posts entity = postsRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. id = " + id ));
+
+        return new PostsResponseDto(entity);
+    }
+
+    @Transactional(readOnly = true)
+    public List<PostsListResponseDto> findAllDesc(){
+        return postsRepository.findAllDesc().stream()
+                .map(PostsListResponseDto::new)
+                .collect(Collectors.toList());
+    }
+}
