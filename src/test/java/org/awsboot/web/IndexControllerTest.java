@@ -1,17 +1,16 @@
 package org.awsboot.web;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.*;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 public class IndexControllerTest {
 
@@ -19,11 +18,11 @@ public class IndexControllerTest {
     private TestRestTemplate restTemplate;
 
     @Test
-    public void 메인페이지_로딩(){
+    public void 메인페이지_로딩() {
         //when
         String body = this.restTemplate.getForObject("/", String.class);
 
-        // then
+        //then
         assertThat(body).contains("스프링부트로 시작하는 웹 서비스");
     }
 }
