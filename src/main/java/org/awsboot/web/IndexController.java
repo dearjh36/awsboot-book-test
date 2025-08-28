@@ -2,7 +2,6 @@ package org.awsboot.web;
 
 import lombok.RequiredArgsConstructor;
 import org.awsboot.config.auth.LoginUser;
-import org.awsboot.config.auth.dto.GoogleUser;
 import org.awsboot.config.auth.dto.SessionUser;
 import org.awsboot.service.PostsService;
 import org.awsboot.web.dto.PostsResponseDto;
@@ -10,8 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
-import javax.servlet.http.HttpSession;
 
 @RequiredArgsConstructor
 @Controller
