@@ -1,0 +1,29 @@
+# Build outputs
+build/
+target/
+*.jar
+*.war
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+
+# Version control
+.git/
+.gitignore
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Local development configuration files
+src/main/resources/application-local*.properties
+src/main/resources/application-real*.properties
+
+# Keep only base configuration and oauth for production
+# application.properties (base config) - KEEP
+# application-oauth.properties - KEEP for OAuth functionality
