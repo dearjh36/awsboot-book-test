@@ -1,17 +1,12 @@
 # --- Build stage ---
-FROM eclipse-temurin:8-jdk AS build
+FROM gradle:6.9.4-jdk8 AS build
 WORKDIR /app
 
-# 모든 파일을 먼저 복사
+# 소스 복사
 COPY . .
 
-# gradlew 권한 설정 (더 확실하게)
-RUN chmod 755 ./gradlew
-RUN ls -la ./gradlew
-
-# 의존성 다운로드 및 빌드
-RUN ./gradlew --no-daemon --stacktrace --info dependencies
-RUN ./gradlew clean build --no-daemon -x test
+# gradle 직접 사용 (Spring Boot 2.4.1과 호환되는 버전)
+RUN gradle clean build -x test --no-daemon
 
 # --- Runtime stage ---
 FROM eclipse-temurin:8-jre
